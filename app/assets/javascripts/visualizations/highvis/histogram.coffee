@@ -66,11 +66,34 @@ $ ->
             formatter: ->
               
               xField = @series.xAxis.options.title.text
-              idx = data.fields.map((x) -> fieldTitle(x)).indexOf(xField)
+              #"idx" could be a useless variable
+              #idx = data.fields.map((x) -> fieldTitle(x)).indexOf(xField)
               str  = "<div style='width:100%;text-align:center;'> "
+              #str += "<p>#{""+ @point}</p><br>"
+              #str += "<p>"
+              console.log @point
+              #console.log data
+              #console.log xField
+
+              # Iterate through data.fields
+              # Match each field in the project with their values in data.dataPoints
+              # Add those in the for loop below
+              #
+              for point in data.dataPoints when @x == point[0]
+                variable  = point[0] 
+              for field, fieldIndex in data.fields  
+                str += "<p>" + data.fields[fieldIndex].fieldName + ": " + data.dataPoints[variable][fieldIndex] + "</p>"
+             # for val,index in data.fields when data.fields[index] == data.fields[val]  
+             #   xAxisIndex = index
+
+             #   str += "<p>Joel was here! </p>"
+             #   str += "<p>" + data.fields[xAxisIndex] + p[xAxisIndex] + "<\p>"
+             #   str += "<p>" + data.fields[xAxisIndex] + p[xAxisIndex+1] + "<\p>"
+             #  str += "</p>"
+
               str += "<b><u>Bin #{@x}</u></b><br>"
               str += "Contains #{@total} Items<br>"
-              str += "Within the Range #{@x - document.getElementById("bin-size").value / 2}"
+              str += "Within the Range #{@x - document.getElementById("bin-size").value / 2} "
               str += "- #{@x + document.getElementById("bin-size").value / 2}</div><br>"
               str += "<table>"
               str += "<tr><td style='text-align: right'>Group :&nbsp;</td>"
@@ -86,6 +109,9 @@ $ ->
                   str += "<tr><td style='text-align: right'>Data Points :&nbsp;</td>"
                   str += "<td style='color:#{@series.color};'>#{@y} in this Bin</td></tr>"
               str += "</table>"
+		#added-----
+           
+		#added-----
             useHTML: true
           plotOptions:
             column:
